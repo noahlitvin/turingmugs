@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
+  resources :connectors
   resources :logs
 
-  root 'logs#index'
+  root 'connectors#index'
 end

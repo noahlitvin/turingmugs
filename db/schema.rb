@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020235903) do
+ActiveRecord::Schema.define(version: 20151021114033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "connectors", force: :cascade do |t|
+    t.string   "channel"
+    t.string   "mug_number"
+    t.string   "user_number"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "logs", force: :cascade do |t|
     t.string   "title"

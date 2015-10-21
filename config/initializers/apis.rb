@@ -1,6 +1,5 @@
 TwilioClient = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
 
-
 module MugBot
   class App < SlackRubyBot::App
   end
@@ -12,9 +11,11 @@ module MugBot
   end
 end
 
+Mugbot = MugBot::App.instance
+
 Thread.new do
   begin
-    MugBot::App.instance.run
+    Mugbot.run
   rescue Exception => e
     STDERR.puts "ERROR: #{e}"
     STDERR.puts e.backtrace

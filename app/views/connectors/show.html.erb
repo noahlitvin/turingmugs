@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Channel:</strong>
+  <%= @connector.channel %>
+</p>
+
+<p>
+  <strong>Mug number:</strong>
+  <%= @connector.mug_number %>
+</p>
+
+<p>
+  <strong>User number:</strong>
+  <%= @connector.user_number %>
+</p>
+
+<%= link_to 'Edit', edit_connector_path(@connector) %> |
+<%= link_to 'Back', connectors_path %>

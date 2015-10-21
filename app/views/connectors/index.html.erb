@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Connectors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Channel</th>
+      <th>Mug number</th>
+      <th>User number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @connectors.each do |connector| %>
+      <tr>
+        <td><%= connector.channel %></td>
+        <td><%= connector.mug_number %></td>
+        <td><%= connector.user_number %></td>
+        <td><%= link_to 'Show', connector %></td>
+        <td><%= link_to 'Edit', edit_connector_path(connector) %></td>
+        <td><%= link_to 'Destroy', connector, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Connector', new_connector_path %>

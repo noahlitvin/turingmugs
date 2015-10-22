@@ -67,11 +67,13 @@ class ConnectorsController < ApplicationController
   # POST /inbound
   def inbound
     Log.create(title: "Inbound message received.", raw_data: params.to_json)
-    #@connector = Connector.where()
-    #@connector.update(user_number: )
-    #Post to slack channel message from params['from']: params[message]. (attachedment)
-    #updated user_number
-    #add thing that makes announcement in model-level callback
+    @connector = Connector.where(mug_number: params['To'])
+    @connector.update(user_number: params['From'])
+
+    client = Slack::Web::Client.new
+    message = "Message from " + params['From'] + ": " + params['Body']
+    message += " (Attachment: " + params['MediaUrl0'] + ")" if params['MediaUrl0']
+    client.message text: message, channel: @connector.channel
 
     render status: 200, text: ''
   end

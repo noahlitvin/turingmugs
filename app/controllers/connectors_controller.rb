@@ -73,7 +73,7 @@ class ConnectorsController < ApplicationController
     client = Slack::Web::Client.new
     message = "Message from " + params['From'] + ": " + params['Body']
     message += " (Attachment: " + params['MediaUrl0'] + ")" if params['MediaUrl0']
-    client.message text: message, channel: @connector.channel
+    client.chat_postMessage text: message, channel: @connector.channel, as_user: true
 
     render status: 200, text: ''
   end

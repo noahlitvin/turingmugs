@@ -5,7 +5,7 @@ class LogsController < ApplicationController
   # GET /logs
   # GET /logs.json
   def index
-    @logs = Log.all(:order => "created_at DESC")
+    @logs = Log.find(:all, :order => "created_at DESC")
   end
 
   # GET /logs/1

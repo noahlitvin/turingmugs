@@ -72,6 +72,8 @@ class ConnectorsController < ApplicationController
     #Post to slack channel message from params['from']: params[message]. (attachedment)
     #updated user_number
     #add thing that makes announcement in model-level callback
+
+    render status: 200, text: ''
   end
 
   private

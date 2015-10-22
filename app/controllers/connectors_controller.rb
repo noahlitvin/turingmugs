@@ -1,6 +1,7 @@
 class ConnectorsController < ApplicationController
   before_action :set_connector, only: [:show, :edit, :update, :destroy]
-  before_action :set_numbers_and_channels, except: [:show, :index]
+  before_action :set_numbers_and_channels, except: [:show, :index, :inbound]
+  before_filter :authenticate, except: ['inbound']
 
   # GET /connectors
   # GET /connectors.json
@@ -60,6 +61,15 @@ class ConnectorsController < ApplicationController
       format.html { redirect_to connectors_url, notice: 'Connector was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # POST /inbound
+  def inbound
+    Log.create(title: "Inbound message received.", raw_data: params.to_json)
+    #log event 
+    #Post to slack channel
+    #updated user_number
+    #add thing that makes announcement in model-level callback
   end
 
   private

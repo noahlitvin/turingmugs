@@ -67,7 +67,7 @@ class ConnectorsController < ApplicationController
   # POST /inbound
   def inbound
     Log.create(title: "Inbound message received.", raw_data: params.to_json)
-    @connector = Connector.where(mug_number: params['To'])
+    @connector = Connector.find_by(mug_number: params['To'])
     @connector.update_attribute(:user_number, params['From'])
 
     client = Slack::Web::Client.new

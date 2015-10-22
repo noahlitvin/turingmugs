@@ -3,7 +3,7 @@ class Connector < ActiveRecord::Base
 	validates :channel, uniqueness: true, presence: true
 	validates_format_of :user_number, :with => /[+]+[1]+\d{10}/, :allow_blank => true
 
-	:after_save => :announce_user_number_change
+	after_save => :announce_user_number_change
 
 	def announce_user_number_change
     	connector = Slack::Web::Client.new

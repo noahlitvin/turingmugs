@@ -2,6 +2,7 @@ class ConnectorsController < ApplicationController
   before_action :set_connector, only: [:show, :edit, :update, :destroy]
   before_action :set_numbers_and_channels, except: [:show, :index, :inbound]
   before_filter :authenticate, except: ['inbound']
+  protect_from_forgery :except => :inbound
 
   # GET /connectors
   # GET /connectors.json
@@ -66,8 +67,9 @@ class ConnectorsController < ApplicationController
   # POST /inbound
   def inbound
     Log.create(title: "Inbound message received.", raw_data: params.to_json)
-    #log event 
-    #Post to slack channel
+    @connector = Connector.where()
+    @connector.update(user_number: )
+    #Post to slack channel message from params['from']: params[message]. (attachedment)
     #updated user_number
     #add thing that makes announcement in model-level callback
   end

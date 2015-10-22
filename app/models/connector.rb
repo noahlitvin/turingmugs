@@ -5,8 +5,8 @@ class Connector < ActiveRecord::Base
 
 	after_save :announce_user_number_change
 
-	def announce_user_number_change(connector)
+	def announce_user_number_change
     	client = Slack::Web::Client.new
-    	client.message text: "I now send messages in this channel to " + connector.user_number, channel: connector.channel if connector.user_number_changed?
+    	client.message text: "I now send messages in this channel to " + self.user_number, channel: self.channel if self.user_number_changed?
 	end
 end

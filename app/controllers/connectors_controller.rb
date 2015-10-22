@@ -1,5 +1,6 @@
 class ConnectorsController < ApplicationController
   before_action :set_connector, only: [:show, :edit, :update, :destroy]
+  before_action :set_numbers_and_channels, except: [:show, :index]
 
   # GET /connectors
   # GET /connectors.json
@@ -65,6 +66,12 @@ class ConnectorsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_connector
       @connector = Connector.find(params[:id])
+    end
+
+    def set_numbers_and_channels
+      client = Slack::Web::Client.new
+      @channels = client.channels_list['channels'].select {|channel| channel['is_member'] }.map {|channel| [channel['name'], channel['id']] }
+      @numbers = TwilioClient.incoming_phone_numbers.list().map { |number| number.phone_number }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

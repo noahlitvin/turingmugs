@@ -9,6 +9,26 @@ module MugBot
       client.message text: 'pong', channel: data.channel
     end
   end
+
+  class Sender < SlackRubyBot::Commands::Base
+    match /^*/ do |client, data, match|
+      if data.user != client.self['id']
+        connector = Connector.find_by(channel: data.channel)
+        if !connector
+          client.message text: "I don't have a connector for the channel, so I didn't send this message along.", channel: data.channel
+        elsif connector.user_number.blank?
+          client.message text: "I don't have a user number associated with this channel, so I didn't send this message along.", channel: data.channel
+        else
+          TwilioClient.messages.create(
+            from: connector.mug_number,
+            to: connector.user_number,
+            body: data.text
+          )
+        end
+      end
+    end
+  end
+
 end
 
 Mugbot = MugBot::App.instance

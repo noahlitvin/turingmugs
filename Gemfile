@@ -29,6 +29,8 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
 end
 group :production do
   gem 'rails_12factor'

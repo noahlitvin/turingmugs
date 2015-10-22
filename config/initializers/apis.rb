@@ -12,7 +12,7 @@ module MugBot
 
   class Sender < SlackRubyBot::Commands::Base
     match /^*/ do |client, data, match|
-      #Log.create(title: "Outbound message received.", raw_data: data.text)
+      Log.create(title: "Outbound message received.")#, raw_data: data.text)
       if data.user != client.self['id']
         connector = Connector.find_by(channel: data.channel)
         if !connector
@@ -25,7 +25,7 @@ module MugBot
             to: connector.user_number,
             body: data.text
           )
-          Log.create(title: "Text message sent.", raw_data: message.to_json)
+          Log.create(title: "Text message sent.")#, raw_data: message.to_json)
         end
       end
     end

@@ -12,8 +12,8 @@ module MugBot
 
   class Sender < SlackRubyBot::Commands::Base
     match /^*/ do |client, data, match|
-      Log.create(title: "Outbound message received.")#, raw_data: data.text)
-      if data.user != client.self['id'] #and !data.subtype GOTTA FIX THIS SHIT
+      Log.create(title: "Outbound message received.")
+      if data.user != client.self['id'] and data['subtype'].blank?
         connector = Connector.find_by(channel: data.channel)
         if !connector
           client.message text: "I don't have a connector for the channel, so I didn't send this message along.", channel: data.channel
@@ -25,7 +25,7 @@ module MugBot
             to: connector.user_number,
             body: data.text
           )
-          Log.create(title: "Text message sent.")#, raw_data: message.to_json)
+          Log.create(title: "Text message sent.")
         end
       end
     end

@@ -12,7 +12,7 @@ module MugBot
 
   class Sender < SlackRubyBot::Commands::Base
     match /^*/ do |client, data, match|
-      Log.create(title: "Outbound message received.")
+      #Log.create(title: "Outbound message received.")
       if data.user != client.self['id'] and data['subtype'].blank?
         connector = Connector.find_by(channel: data.channel)
         if !connector
@@ -25,7 +25,7 @@ module MugBot
             to: connector.user_number,
             body: data.text
           )
-          Log.create(title: "Text message sent.")
+          Log.create(title: "Text message sent.", raw_data: "to: " + connector.user_number + " from: " + connector.mug_number + " body: " + data.text)
         end
       end
     end

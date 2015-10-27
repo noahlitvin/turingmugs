@@ -25,7 +25,7 @@ module MugBot
             to: connector.user_number,
             body: data.text
           )
-          Log.create(title: "Text message sent.", raw_data: "to: " + connector.user_number + " from: " + connector.mug_number + " body: " + data.text)
+          Log.create(title: "Text message sent.", raw_data: {to: connector.user_number,from: connector.mug_number,body: data.text})
         end
       end
     end
